@@ -1,0 +1,179 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" ng-app="app" ng-controller="managedashboard"  ng-cloak="true">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1> Dashboard <small>Control panel</small> </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-2 col-xs-12">
+                    <div class="form-group">
+                        <label>Report</label>
+                        <div class="input-group">    
+                            <select class="form-control select2" ng-model="filter.report" ng-init="filter.report='day'">
+                                <option value="day">Day Wise</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>          
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label>Start Date</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="datepicker" data-date-format="yyyy-mm-dd" ng-model="filter.startDate">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>                
+                <div class="col-md-3 col-xs-12">
+                    <div class="form-group">
+                        <label>End Date</label>
+
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input class="datepicker" data-date-format="yyyy-mm-dd" ng-model="filter.endDate">
+                        </div>
+                        <!-- /.input group -->
+                    </div>
+                </div>
+                <div class="col-md-2 col-xs-12 no-rpad"><label>&nbsp;</label>
+                    <button class="btn btn-block btn-primary" type="button" ng-click="applyFilter()">Apply</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--div class="col-lg-8 col-md-8 col-xs-12 no-rpad">
+                    <div class="box box-info">
+                        <div id="container4" style="width: 100%; max-width: 850px;"> 
+                            <table border="1" cellspacing="10" cellpadding="10">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Total Order</th>
+                                    <th>Total confirmed sales</th>
+                                </tr>
+                                <tr ng-repeat="date in arr">
+                                    <td align="center">{{date}} </td>
+                                    <td align="center">
+                                        <span ng-if="analytics.customerData.data.allOrderByDate[date].count">{{analytics.customerData.data.allOrderByDate[date].count}}</span> 
+                                        <span ng-if="!analytics.customerData.data.allOrderByDate[date].count">--</span>
+                                    </td>
+                                    <td align="center"><span ng-if="analytics.customerData.data.completedOrderByDate[date].count">{{analytics.customerData.data.completedOrderByDate[date].count}}</span>
+                                        <span ng-if="!analytics.customerData.data.completedOrderByDate[date].count">--</span> </td>
+                                    <td align="center"> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div-->
+                <div class="col-lg-8 col-md-8 col-xs-12 no-rpad">
+                    <div class="box box-info">
+                        <div id="container14" style="width: 100%; max-width: 850px; height: 350px; margin: 0 auto;"> </div>
+                    </div>
+                </div>                                
+                <div class="col-lg-4 col-md-4 col-xs-12 ">
+                    <div class="row">
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-purple">
+                                <div class="inner">
+                                    <h3>{{analytics.customerData.data.totalOrder}}</h3>
+                                    <p>Total sales confirmed</p>
+                                </div>
+                                <div class="icon"> <i class="ion ion-bag"></i> </div>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-olive">
+                                <div class="inner">
+                                    <h3>{{analytics.customerData.data.totalConfirmedOrder}}</h3>
+                                    <p>Total Order Confirmed</p>
+                                </div>
+                                <div class="icon"> <i class="ion ion-clipboard"></i> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-yellow">
+                                <div class="inner">
+                                    <h3>{{analytics.customerData.data.totalCancelledOrder}}</h3>
+                                    <p>Total cancelled Order</p>
+                                </div>
+                                <div class="icon"> <i class="ion ion-clipboard"></i> </div>
+                            </div>
+                        </div>                        
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-red">
+                                <div class="inner">
+                                    <h3>{{totalActiveCustomer}}</h3>
+                                    <p>Total No of Active Customer</p>
+                                </div>
+                                <div class="icon"> <i class="fa fa-users"></i> </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-yellow">
+                                <div class="inner">
+                                    <h3>{{totalNumberOfProduct}}</h3>
+                                    <p>Total No of product added</p>
+                                </div>
+                                <div class="icon"> <i class="fa fa-dropbox"></i> </div>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                        <div class="col-lg-6 col-xs-12 no-rpad">
+                            <!-- small box -->
+                            <div class="small-box bg-bllue-dark">
+                                <div class="inner">
+                                    <h3>{{totalNumberOfMerchant}}</h3>
+                                    <p>Total No of Merchant</p>
+                                </div>
+                                <div class="icon"> <i class="fa fa-bank"></i> </div>
+                            </div>
+                        </div>
+                        <!-- ./col -->
+                    </div>
+                </div>
+            </div>
+        </div>   
+        <div style="position: fixed; top: 0; left: 0; background: rgba(0,0,0,0.3); z-index: 99999999; width: 100%; height: 100%;"  ng-show="ajaxLoadingData">
+            <img style="position: absolute; top: 40%; left: 45%; width: 250px; " alt="loader" src="<?=$this->basePath()?>/public/img/loading_cart.gif">
+        </div>        
+    </section>
+    
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+<!-- Main Footer -->
+<!-- Control Sidebar -->
+<!-- /.control-sidebar -->
+<!-- Add the sidebar's background. This div must be placed
+immediately after the control sidebar -->
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/highcharts.js"></script>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/exporting.js"></script>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/waypoints.js"></script>
+
+<script>
+    $(function () {
+        $('.datepicker').datepicker();
+    });
+</script> 
+<script src="<?php echo $this->basePath() . '/public/js/dashboard/dashboard.js' ?>">
+</script>
